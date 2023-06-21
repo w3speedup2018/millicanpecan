@@ -1,0 +1,31 @@
+<script type="application/ld+json">
+{
+	"@context": "http://schema.org",
+	"@type": "Product",
+	"brand": {
+		"@type": "Brand",
+		"name": {{ product.vendor | json }}
+	},
+	"sku": {{ product.selected_or_first_available_variant.sku | json }},
+	"description": {{ product.description | strip_html | json }},
+	"url": {{ canonical_url | json }},
+	"name": {{ product.title | json }},
+	{%- if product.featured_image -%}
+	"image": "https:{{ product.featured_image | product_img_url: 'grande' }}",
+	{%- endif -%}
+	"offers": {
+		"@type": "Offer",
+		"price": "{{ product.selected_or_first_available_variant.price | money_without_currency | remove: "," }}",
+		"priceCurrency": "{{ shop.currency }}",
+		"availability": "{%- if product.selected_or_first_available_variant.available -%}InStock{%- else -%}OutOfStock{%- endif -%}",
+		"itemCondition": "http://schema.org/NewCondition"
+	}
+	{%- if product.metafields.stamped.reviews_count and product.metafields.stamped.reviews_count != "0" -%}
+	,"aggregateRating": {
+	  "@type": "AggregateRating",
+	  "ratingValue": {{ product.metafields.stamped.reviews_average | round: 1 }},
+	  "ratingCount": {{ product.metafields.stamped.reviews_count }}
+	}
+	{%- endif -%}
+}
+</script>

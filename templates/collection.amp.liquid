@@ -1,0 +1,36 @@
+{% layout 'theme.amp' }%}
+
+<div class="content">
+  <div class="bread-crumbs">
+    <a href="/?view=amp">Home</a>
+    <span class="divider">/</span>
+    {% if collection.handle == 'all' %}
+    	<a href="/collections/all?view=amp">Catalog</a>
+    {% elsif template == 'index' %}
+    	<a href="{{ collection.url }}?view=amp">{{ collection.title }}</a>
+    {% else %}
+    	<a class="root" href="/collections?view=amp">Collections</a>
+   		<span class="divider">/</span>
+    	<a>{{ collection.title }}</a>
+    	{% if current_tags %}
+    		{% for tag in current_tags %}
+    			<span class="divider">/</span>
+    			<a>{{ tag }}</a>
+    		{% endfor %}
+    	{% endif %}
+    {% endif %}
+  </div>
+  <h1 class="page-title">{{collection.title}}</h1>
+  {% paginate collection.products by 12 %}
+    <div class="collection-products">
+      {% for product in collection.products %}
+          {% include 'OTG-amp-collection-product' %}
+      {% endfor %}
+    </div>
+    {% if paginate.pages > 1 %}
+      <div>{{ paginate | default_pagination | replace: '&laquo; Previous', '&larr;' | replace: 'Next &raquo;', '&rarr;' }}</div>
+    {% endif %}
+  {% endpaginate %}
+</div>
+
+  

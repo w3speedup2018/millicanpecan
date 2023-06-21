@@ -1,0 +1,33 @@
+ {% for article in blog.pecan-recipes.articles %}
+      <h2>{{ article.title }}</h2>
+      {% endfor %}
+<h1>blog</h1>
+{% for article in blog.pecan-recipes.articles %}
+        <div class="blog-tem_flexbox">
+         
+          <div class="blog-textblock">
+            
+            <a href="{{ article.url }}" class="blog-link"> <h1 class="blog-header">{{ article.title }}</h1></a>
+            
+          
+        </div>
+      {% endfor %}
+{% for tag in blog.all_tags %}
+    {{ tag }}
+{% endfor %}
+{% for tag in blog.all_tags %}
+    {{ tag }}
+{% endfor %}
+
+{% schema %}
+  {
+    "name": "Section name",
+    "settings": []
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

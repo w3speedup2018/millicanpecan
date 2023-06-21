@@ -1,0 +1,356 @@
+{% assign your_blog_handle_here = 'pecan-recipes' %}
+{% assign how_many_articles_to_show = 15 %}
+<div class="blog-sidebar">
+  <div class="author-block">
+    {% if section.settings.author_title != blank %}
+    <h2>{{ section.settings.author_title | escape }}</h2>
+    {% endif %}
+    {% if section.settings.author_image != blank %}
+    <img src="{{ section.settings.author_image | img_url: '480x' }}"/>
+    {% endif %}
+    {% if section.settings.author_des != blank %}
+    <span>{{ section.settings.author_des | escape }}</span>
+    {% endif %}
+    <div class="sharethis-inline-follow-buttons"></div>
+    {% comment %}
+    <ul class="list--inline">
+      {%- if section.settings.social_facebook_link != blank -%}
+      <li>
+        <a class="social-icons__link" href="{{ section.settings.social_facebook_link | escape }}" aria-describedby="a11y-external-message">
+          {%- include 'icon-facebook' -%}
+          <span class="icon__fallback-text">Facebook</span>
+        </a>
+      </li>
+      {%- endif -%}
+      {%- if section.settings.social_twitter_link != blank -%}
+      <li>
+        <a class="social-icons__link" href="{{ section.settings.social_twitter_link | escape }}" aria-describedby="a11y-external-message">
+          {%- include 'icon-twitter' -%}
+          <span class="icon__fallback-text">Twitter</span>
+        </a>
+      </li>
+      {%- endif -%}
+      {%- if section.settings.social_pinterest_link != blank -%}
+      <li>
+        <a class="social-icons__link" href="{{ section.settings.social_pinterest_link | escape }}" aria-describedby="a11y-external-message">
+          {%- include 'icon-pinterest' -%}
+          <span class="icon__fallback-text">Pinterest</span>
+        </a>
+      </li>
+      {%- endif -%}
+      {%- if section.settings.social_instagram_link != blank -%}
+      <li>
+        <a class="social-icons__link" href="{{ section.settings.social_instagram_link | escape }}" aria-describedby="a11y-external-message">
+          {%- include 'icon-instagram' -%}
+          <span class="icon__fallback-text">Instagram</span>
+        </a>
+      </li>
+      {%- endif -%}
+      {%- if section.settings.social_tumblr_link != blank -%}
+      <li>
+        <a class="social-icons__link" href="{{ section.settings.social_tumblr_link | escape }}" aria-describedby="a11y-external-message">
+          {%- include 'icon-tumblr' -%}
+          <span class="icon__fallback-text">Tumblr</span>
+        </a>
+      </li>
+      {%- endif -%}
+      {%- if section.settings.social_snapchat_link != blank -%}
+      <li>
+        <a class="social-icons__link" href="{{ section.settings.social_snapchat_link | escape }}" aria-describedby="a11y-external-message">
+          {%- include 'icon-snapchat' -%}
+          <span class="icon__fallback-text">Snapchat</span>
+        </a>
+      </li>
+      {%- endif -%}
+      {%- if section.settings.social_youtube_link != blank -%}
+      <li>
+        <a class="social-icons__link" href="{{ section.settings.social_youtube_link | escape }}" aria-describedby="a11y-external-message">
+          {%- include 'icon-youtube' -%}
+          <span class="icon__fallback-text">YouTube</span>
+        </a>
+      </li>
+      {%- endif -%}
+      {%- if section.settings.social_vimeo_link != blank -%}
+      <li>
+        <a class="social-icons__link" href="{{ section.settings.social_vimeo_link | escape }}" aria-describedby="a11y-external-message">
+          {%- include 'icon-vimeo' -%}
+          <span class="icon__fallback-text">Vimeo</span>
+        </a>
+      </li>
+      {%- endif -%}
+      {%- if template.name == 'blog' or template.name == 'article' -%}
+      <li>
+        <a class="social-icons__link" href="{{ shop.url }}{{ blog.url }}.atom">
+          {%- include 'icon-rss' -%}
+          <span class="icon__fallback-text">RSS</span>
+        </a>
+      </li>
+      {%- endif -%}
+    </ul>
+    {% endcomment %}
+  </div>
+  <div class="category-block">
+    {% if section.settings.category_title != blank %}
+    <h2>{{ section.settings.category_title | escape }}</h2>
+    {% endif %}
+    <ul class="blog-list">
+      {% for tag in blog.all_tags %}
+      <li>
+        <a href="{{ blog.url }}/tagged/{{ tag | handle }}">{{ tag }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="recent-block">
+    {% if section.settings.latest_blog_posts != blank %}
+    <h2>{{ section.settings.latest_blog_posts | escape }}</h2>
+    {% endif %}
+    <ul class="blog-list">
+      {% for article in blogs[your_blog_handle_here].articles limit: how_many_articles_to_show %}
+      <li> {{ article.title | link_to: article.url }} </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Recipes Blog Sidebar",
+    "settings": [
+      {
+          "type": "header",
+          "content": "Author"
+      },	
+      {
+          "type": "text",
+          "id": "author_title",
+          "label": "Block Author Title",
+          "default": "Meet Kristen"
+      },
+      {
+          "type": "image_picker",
+          "id": "author_image",
+          "label": "Author Image"
+      },
+      {
+          "type": "textarea",
+          "id": "author_des",
+          "label": "Block Author Content",
+          "default": "Hi! My name is Kristen Millican and I am so glad you have stopped by! Our family has been harvesting and selling pecans since 1888. I love sharing my favorite pecan recipes, stories about life on our pecan farm and so much more!"
+      },
+      {
+        "type": "header",
+        "content": {
+          "de": "Social Media",
+          "en": "Social accounts",
+          "es": "Cuentas de redes sociales",
+          "fr": "Médias sociaux",
+          "it": "Account social",
+          "ja": "SNSアカウント",
+          "pt-BR": "Contas em redes sociais"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": {
+          "de": "Twitter",
+          "en": "Twitter",
+          "es": "Twitter",
+          "fr": "Twitter",
+          "it": "Twitter",
+          "ja": "Twitter",
+          "pt-BR": "Twitter"
+        },
+        "info": {
+          "de": "https:\/\/twitter.com\/shopify",
+          "en": "https:\/\/twitter.com\/shopify",
+          "es": "https:\/\/twitter.com\/shopify",
+          "fr": "https:\/\/twitter.com\/shopify",
+          "it": "https:\/\/twitter.com\/shopify",
+          "ja": "https:\/\/twitter.com\/shopify",
+          "pt-BR": "https:\/\/twitter.com\/shopify"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": {
+          "de": "Facebook",
+          "en": "Facebook",
+          "es": "Facebook",
+          "fr": "Facebook",
+          "it": "Facebook",
+          "ja": "Facebook",
+          "pt-BR": "Facebook"
+        },
+        "info": {
+          "de": "https:\/\/facebook.com\/shopify",
+          "en": "https:\/\/facebook.com\/shopify",
+          "es": "https:\/\/www.facebook.com\/ShopifyES\/",
+          "fr": "https:\/\/facebook.com\/shopify",
+          "it": "https:\/\/facebook.com\/shopify",
+          "ja": "https:\/\/facebook.com\/shopify",
+          "pt-BR": "https:\/\/facebook.com\/shopify"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": {
+          "de": "Pinterest",
+          "en": "Pinterest",
+          "es": "Pinterest",
+          "fr": "Pinterest",
+          "it": "Pinterest",
+          "ja": "Pinterest",
+          "pt-BR": "Pinterest"
+        },
+        "info": {
+          "de": "https:\/\/pinterest.com\/shopify",
+          "en": "https:\/\/pinterest.com\/shopify",
+          "es": "https:\/\/pinterest.com\/shopify",
+          "fr": "https:\/\/pinterest.com\/shopify",
+          "it": "https:\/\/pinterest.com\/shopify",
+          "ja": "https:\/\/pinterest.com\/shopify",
+          "pt-BR": "https:\/\/pinterest.com\/shopify"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": {
+          "de": "Instagram",
+          "en": "Instagram",
+          "es": "Instagram",
+          "fr": "Instagram",
+          "it": "Instagram",
+          "ja": "Instagram",
+          "pt-BR": "Instagram"
+        },
+        "info": {
+          "de": "http:\/\/instagram.com\/shopify",
+          "en": "http:\/\/instagram.com\/shopify",
+          "es": "http:\/\/instagram.com\/shopify",
+          "fr": "http:\/\/instagram.com\/shopify",
+          "it": "http:\/\/instagram.com\/shopify",
+          "ja": "http:\/\/instagram.com\/shopify",
+          "pt-BR": "http:\/\/instagram.com\/shopify"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_tumblr_link",
+        "label": {
+          "de": "Tumblr",
+          "en": "Tumblr",
+          "es": "Tumblr",
+          "fr": "Tumblr",
+          "it": "Tumblr",
+          "ja": "Tumblr",
+          "pt-BR": "Tumblr"
+        },
+        "info": {
+          "de": "http:\/\/shopify.tumblr.com",
+          "en": "http:\/\/shopify.tumblr.com",
+          "es": "http:\/\/shopify.tumblr.com",
+          "fr": "http:\/\/shopify.tumblr.com",
+          "it": "http:\/\/shopify.tumblr.com",
+          "ja": "http:\/\/shopify.tumblr.com",
+          "pt-BR": "http:\/\/shopify.tumblr.com"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_snapchat_link",
+        "label": {
+          "de": "Snapchat",
+          "en": "Snapchat",
+          "es": "Snapchat",
+          "fr": "Snapchat",
+          "it": "Snapchat",
+          "ja": "Snapchat",
+          "pt-BR": "Snapchat"
+        },
+        "info": {
+          "de": "https:\/\/www.snapchat.com\/add\/shopify",
+          "en": "https:\/\/www.snapchat.com\/add\/shopify",
+          "es": "https:\/\/www.snapchat.com\/add\/shopify",
+          "fr": "https:\/\/www.snapchat.com\/add\/shopify",
+          "it": "https:\/\/www.snapchat.com\/add\/shopify",
+          "ja": "https:\/\/www.snapchat.com\/add\/shopify",
+          "pt-BR": "https:\/\/www.snapchat.com\/add\/shopify"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": {
+          "de": "YouTube",
+          "en": "YouTube",
+          "es": "Youtube",
+          "fr": "YouTube",
+          "it": "YouTube",
+          "ja": "YouTube",
+          "pt-BR": "YouTube"
+        },
+        "info": {
+          "de": "https:\/\/www.youtube.com\/shopify",
+          "en": "https:\/\/www.youtube.com\/shopify",
+          "es": "https:\/\/www.youtube.com\/shopify",
+          "fr": "https:\/\/www.youtube.com\/shopify",
+          "it": "https:\/\/www.youtube.com\/shopify",
+          "ja": "https:\/\/www.youtube.com\/shopify",
+          "pt-BR": "https:\/\/www.youtube.com\/shopify"
+        }
+      },
+      {
+        "type": "text",
+        "id": "social_vimeo_link",
+        "label": {
+          "de": "Vimeo",
+          "en": "Vimeo",
+          "es": "Vimeo",
+          "fr": "Vimeo",
+          "it": "Vimeo",
+          "ja": "Vimeo",
+          "pt-BR": "Vimeo"
+        },
+        "info": {
+          "de": "https:\/\/vimeo.com\/shopify",
+          "en": "https:\/\/vimeo.com\/shopify",
+          "es": "https:\/\/vimeo.com\/shopify",
+          "fr": "https:\/\/vimeo.com\/shopify",
+          "it": "https:\/\/vimeo.com\/shopify",
+          "ja": "https:\/\/vimeo.com\/shopify",
+          "pt-BR": "https:\/\/vimeo.com\/shopify"
+        }
+      },
+      {
+          "type": "header",
+          "content": "Category"
+      },
+      {
+          "type": "text",
+          "id": "category_title",
+          "label": "Block Category Title",
+          "default": "Categories"
+      },
+      {
+          "type": "header",
+          "content": "Latest log Posts"
+      },
+      {
+          "type": "text",
+          "id": "latest_blog_posts",
+          "label": "Recent Posts",
+          "default": "Recent Posts"
+      }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

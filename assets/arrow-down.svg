@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="15px" height="8px" viewBox="0 0 15 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>arrow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="DESKTOP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="3A---TASTE-LANDING-" transform="translate(-860.000000, -595.000000)" fill="#C53C27">
+            <g id="RECIPES" transform="translate(80.000000, 553.000000)">
+                <g id="FIND-A-RECIPE" transform="translate(113.000000, 0.000000)">
+                    <path d="M668.493096,42 C667.668482,42 667.457869,42.4883932 668.027117,43.0955917 L673.472883,48.9044083 C674.040144,49.5094869 674.957869,49.5116068 675.527117,48.9044083 L680.972883,43.0955917 C681.540144,42.4905131 681.336114,42 680.506904,42 L668.493096,42 Z" id="arrow"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

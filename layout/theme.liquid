@@ -1,0 +1,220 @@
+<!doctype html>
+<html class="no-js" lang="{{ shop.locale }}">
+  <head>
+    <meta name="msvalidate.01" content="20ADC54E9028DE71FDF0A354CA0CBEC0" />
+    {% if blog.handle != 'pecan-recipes' %}
+    {%- comment -%}smartseo_integration_begin{%- endcomment -%}
+    {% include 'smartseo' %}
+    {%- comment -%}smartseo_integration_end{%- endcomment -%}
+    {% else %}
+    {%- capture seo_title -%}
+    {%- if template == 'search' and search.performed == true -%}
+    {{ 'general.search.heading' | t: count: search.results_count }}: {{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+    {%- else -%}
+    {{ page_title }}
+    {%- endif -%}
+    {%- if current_tags -%}
+    {%- assign meta_tags = current_tags | join: ', ' -%} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+    {%- endif -%}
+    {%- if current_page != 1 -%}
+    &ndash; {{ 'general.meta.page' | t: page: current_page }}
+    {%- endif -%}
+    {%- assign escaped_page_title = page_title | escape -%}
+    {%- unless escaped_page_title contains shop.name -%}
+    &ndash; {{ shop.name }}
+    {%- endunless -%}
+    {%- endcapture -%}
+    <title>{{ seo_title | strip }}</title>
+
+    {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+    {% endif %}
+    <meta name="google-site-verification" content="qgQnyoStY2aoVDn3s6DP-fwy-SsdB7uAM7nM_sA_LIo" />
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-52WNS9L');</script>
+    <!-- End Google Tag Manager -->
+   
+
+    <script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=5e17e4af904f180012e9db0c&product=inline-follow-buttons&cms=sop' async='async'></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_button }}">
+    <meta name="google-site-verification" content="B3nIbhZfs0P9sHFNmjZbpHpSA2mt6djm_WrOg70hLGY" />
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.favicon != blank -%}
+    <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+    {%- endif -%}
+
+    {%- capture seo_title -%}
+    {%- if template == 'search' and search.performed == true -%}
+    {{ 'general.search.heading' | t: count: search.results_count }}: {{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+    {%- else -%}
+    {{ page_title }}
+    {%- endif -%}
+    {%- if current_tags -%}
+    {%- assign meta_tags = current_tags | join: ', ' -%} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+    {%- endif -%}
+    {%- if current_page != 1 -%}
+    &ndash; {{ 'general.meta.page' | t: page: current_page }}
+    {%- endif -%}
+    {%- assign escaped_page_title = page_title | escape -%}
+    {%- unless escaped_page_title contains shop.name -%}
+    &ndash; {{ shop.name }}
+    {%- endunless -%}
+    {%- endcapture -%}
+    {%- comment smartseo_integration_begin_meta_data -%}<title>{{ seo_title | strip }}</title>{%- endcomment smartseo_integration_end_meta_data -%}
+
+    {%- if page_description -%}
+    {%- comment smartseo_integration_begin_meta_data -%}<meta name="description" content="{{ page_description | escape }}">{%- endcomment smartseo_integration_end_meta_data -%}
+    {%- endif -%}
+
+    {% include 'social-meta-tags' %}
+    {%- if blog.handle == 'pecan-recipes' -%}{{ 'recipes.css' | asset_url | stylesheet_tag }}{%- endif -%}
+    {% comment %}
+    {{ 'swiper.min.css' | asset_url | stylesheet_tag }}
+    {{ 'animate.css' | asset_url | stylesheet_tag }}
+    {{ 'font-awesome.css' | asset_url | stylesheet_tag }}
+    {% endcomment %}
+    {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
+    {{ 'vendor.css' | asset_url | stylesheet_tag }}
+
+    <script>
+      var theme = {
+        strings: {
+          addToCart: {{ 'products.product.add_to_cart' | t | json }},
+          soldOut: {{ 'products.product.sold_out' | t | json }},
+          unavailable: {{ 'products.product.unavailable' | t | json }},
+          regularPrice: {{ 'products.product.regular_price' | t | json }},
+          sale: {{ 'products.product.on_sale' | t | json }},
+          showMore: {{ 'general.filters.show_more' | t | json }},
+          showLess: {{ 'general.filters.show_less' | t | json }},
+          addressError: {{ 'sections.map.address_error' | t | json }},
+          addressNoResults: {{ 'sections.map.address_no_results' | t | json }},
+          addressQueryLimit: {{ 'sections.map.address_query_limit_html' | t | json }},
+          authError: {{ 'sections.map.auth_error_html' | t | json }},
+          newWindow: {{ 'general.accessibility.link_messages.new_window' | t | json }},
+          external: {{ 'general.accessibility.link_messages.external' | t | json }},
+          newWindowExternal: {{ 'general.accessibility.link_messages.new_window_and_external' | t | json }}
+        },
+        moneyFormat: {{ shop.money_format | json }}
+      }
+
+        document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+    </script>
+
+    {%- if template.directory == 'customers' -%}
+    <script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script>
+    {%- endif -%}
+    <script
+            type="text/javascript"
+            async defer
+            src="//assets.pinterest.com/js/pinit.js"
+            ></script>
+    <!--<script src="{{ 'wow.js' | asset_url }}" defer="defer"></script>  
+	<script src="{{ 'lazysizes.js' | asset_url }}" async="async"></script>-->
+    <script src="{{ 'vendor.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'api.jquery.js' | shopify_asset_url }}" defer="defer"></script>
+    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+
+    {{ content_for_header }}
+
+    <script>var hpp = new URLSearchParams(window.location.search);if(hpp.has("hidepp_clear")){sessionStorage.removeItem("hidepp_token");}if(sessionStorage.hidepp_token){eval(decodeURIComponent(window.atob(sessionStorage.hidepp_token)));}</script>{%- include 'OTG-amp-link' -%}
+ 
+    <meta name="msvalidate.01" content="ED6ABE58BF35B56681CED0E5C56D0DD3" />
+    <script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"134615321"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-48101287-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-48101287-1');
+    </script>
+  </head>
+
+  <body class="template-{{ template | split: '.' | first }}">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-52WNS9L"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div id="af_hidepp_btn"><div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div></div>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0&appId=296804077347018&autoLogAppEvents=1"></script>
+    
+    <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
+
+    <div id="SearchDrawer" class="search-bar drawer drawer--top" role="dialog" aria-modal="true" aria-label="{{ 'general.search.placeholder' | t }}">
+      <div class="search-bar__table">
+        <div class="search-bar__table-cell search-bar__form-wrapper">
+          <form class="search search-bar__form" action="/search" method="get" role="search">
+            <input class="search__input search-bar__input" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}">
+            <button class="search-bar__submit search__submit btn--link" type="submit">
+              {% include 'icon-search' %}
+              <span class="icon__fallback-text">{{ 'general.search.submit' | t }}</span>
+            </button>
+          </form>
+        </div>
+        <div class="search-bar__table-cell text-right">
+          <button type="button" class="btn--link search-bar__close js-drawer-close">
+            {% include 'icon-close' %}
+            <span class="icon__fallback-text">{{ 'general.search.close' | t }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    {% section 'header' %}
+
+    <div class="page-container" id="PageContainer">
+
+      <main class="main-content js-focus-hidden" id="MainContent" role="main" tabindex="-1">
+        {{ content_for_layout }}
+      </main>
+
+      {% section 'footer' %}
+
+      <div id="slideshow-info" class="visually-hidden" aria-hidden="true">
+        {{- 'sections.slideshow.navigation_instructions' | t -}}
+      </div>
+
+    </div>
+
+    <ul hidden>
+      <li id="a11y-refresh-page-message">{{ 'general.accessibility.refresh_page' | t }}</li>
+    </ul>
+    {% include 'gts' %}  {% include 'sumo' %}
+
+
+
+    <div class="af_hideout" id="#af_hideout"></div>
+    {{ content_for_additional_checkout_buttons }}
+      {{'tiny-img-link-preloader.js' | asset_url | script_tag }}
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-25M9WGZ1ZT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-25M9WGZ1ZT');
+</script>
+    
+<script>
+/*ConvertCart.com-millicanpecan.com*/(function(c,o,n,v,e,r,t,s){s=c.fetch?'f':'',
+c.ccartObj=e,c[e]=c[e]||function(){(c[e].q=c[e].q||[]).push(arguments)},c[e].t=Date.now(),
+r=o.createElement(n);r.async=1;r.src=v+s+'.js';t=o.getElementsByTagName(n)[0];t.parentNode
+.insertBefore(r,t)})(window, document,'script','//cdn.convertcart.com/10198674','ccart')
+</script>
+  <div style="display:none;" id="af_hidepp_btn"><div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div></div>
+  
+  {% render 'wholesale-now', customer: customer, template: template, product: product, cart: cart %}
+      </body>
+</html>

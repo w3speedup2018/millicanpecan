@@ -1,0 +1,89 @@
+<div id="timeline" class="timeline-container">
+  {% for block in section.blocks %}
+  <!-- TIMELINE ITEM -->
+  <div class="timeline-block" style="background: url({{ block.settings.image | img_url: '900x' }});background-position: 60px center;background-repeat: no-repeat;background-size: cover;">
+    <div class="timeline-point">
+    </div>
+    {% assign odd = forloop.index0 | modulo:2 %}
+    <div class="timeline-content wow {% if odd == 0  %} fadeInLeft{% else %} fadeInRight{% endif %}">
+      <span class="timeline-date">
+        <span class="timeline-month">{{ block.settings.month | escape }}</span>
+        <span class="timeline-year">{{ block.settings.generation | escape }}</span>	                            
+        <br>
+        <span class="timeline-year">{{ block.settings.year | escape }}</span>	                            
+      </span>
+
+      <h2>{{ block.settings.title | escape }}</h2>
+      {{ block.settings.desc }}
+    </div>
+  </div>  
+  {% endfor %}
+</div>
+{% schema %}
+  {
+    "name": "Section history",
+  "class": "history-section",
+  "settings": [
+    {
+    "type": "header",
+    "content": "History blocks"
+    }
+	],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "history block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading"
+        },
+		{
+		  "type": "richtext",
+		  "id": "desc",
+		  "label": "Description"
+		},
+		{
+		  "type": "text",
+		  "id": "month",
+		  "label": "Month"
+		},
+		{
+		  "type": "text",
+		  "id": "generation",
+		  "label": "Generation"
+		},
+		{
+		  "type": "text",
+		  "id": "year",
+		  "label": "Year"
+		}
+      ]
+    }
+  ],
+  "presets": [
+  {
+    "name": "history block",
+    "category": "history block",
+    "blocks": [
+        {
+        "type": "text"
+        }
+      ]
+    }
+  ]
+}
+
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

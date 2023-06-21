@@ -1,0 +1,9 @@
+<amp-selector layout="container" name="{{ option_id }}">
+    {%- for value in option.values -%}
+        <div option="{{ value | escape | remove:'&' | remove:';' }}" role="button" tabindex="{{ option_index | times: forloop.index }}"
+             on="tap:AMP.setState({myState: {{ '{' | append: option_id }}: '{{ value | escape | remove:'&' | remove:';' }}'}})"
+             {% if option.selected_value == value %} selected="selected"{% endif %}>
+            {{ value | escape }}
+        </div>
+    {%- endfor -%}
+</amp-selector>

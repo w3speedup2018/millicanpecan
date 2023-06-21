@@ -1,0 +1,29 @@
+{% if product.compare_at_price_min > product.price_min %}
+  {% assign on_sale = true %}
+{% else %}
+  {% assign on_sale = false %}
+{% endif %}
+
+<div class="product-box">
+  <a href="{{ product.url }}?view=amp">
+    <amp-img alt="{{ product.featured_image.alt | escape }}"
+             src="{{ product.featured_image.src | img_url: '400x' }}"
+             width="180"
+             height="180"
+             layout="responsive">
+    </amp-img>
+    <div class="title">{{ product.title }}</div>
+    <div class="price">
+      {% if on_sale %}
+          <span class="strike-through">{{ product.compare_at_price_min | money }}</span>&nbsp;
+          {{ product.price_min | money }}
+      {% elsif product.price_varies %}
+          {% capture price_min %}{{ product.price_min | money }}{% endcapture %}
+          {% capture price_max %}{{ product.price_max | money }}{% endcapture %}
+          {{ price_min }} - {{ price_max}}
+      {% else %}
+          {{ product.price | money }}
+      {% endif %}
+    </div>
+  </a>
+</div>

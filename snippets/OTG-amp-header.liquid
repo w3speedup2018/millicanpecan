@@ -1,0 +1,17 @@
+<header>
+  <div class="menu-wrapper">
+    <div class="menu-toggle" on='tap:mainNavigation.toggle' aria-label="menu" role="button" tabindex="1">
+      <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+    </div>
+  </div>
+  <a href="/?view=amp" class="shop-name" aria-label="home">{{ shop.name }}</a>
+  <span class="right">
+    <a href="/search" aria-label="search" class="search">
+    <i class="fa fa-search" aria-hidden="true"></i>
+  </a>
+  <a href="/cart" aria-label="cart" class="cart">
+    <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+    <span class="circle {% if cart.item_count == 0 %}cart-count-hidden{% endif %}">{{ cart.item_count }}</span>
+  </a>
+  </span>
+</header>

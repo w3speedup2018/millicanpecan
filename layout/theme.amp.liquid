@@ -1,0 +1,44 @@
+<!doctype html>
+<html amp lang="{{ shop.locale }}">
+<head>
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-48101287-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-48101287-1');
+</script>
+    
+    <!-- Global site tag (gtag.js) - Google Ads: 987773596 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-987773596"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-987773596');
+</script>
+  
+    {% include 'OTG-amp-metas' %}
+    {% include 'OTG-amp-scripts' %}
+    {% include 'OTG-amp-styles' %}
+
+    {% comment %}
+    {{ content_for_header }}
+    {% endcomment %}
+</head>
+<body id="{{ page_title | handle }}">
+	{% include 'OTG-amp-sidebar' %}
+	{% include 'OTG-amp-header' %}
+  
+    <section class="main">
+        {{ content_for_layout }}
+    </section>
+  
+  	{% include 'OTG-amp-footer' %}
+  	{% include 'OTG-amp-analytics' %}
+</body>
+</html>

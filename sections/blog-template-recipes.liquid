@@ -1,0 +1,109 @@
+<div id="myDIV" class="m-recipe-finder false">
+  <button class="m-recipe-finder__title m-dropdown-title">Find a Recipe</button>
+  <div class="m-recipe-finder__dropdown">
+    <form action="/search" method="get" class="m-recipe-finder-form" role="search">
+      <input class="m-input m-recipe-finder-form__field"
+             type="search"
+             name="q"
+             placeholder="{{ 'general.search.placeholder' | t }}"
+             aria-label="{{ 'general.search.placeholder' | t }}">
+      <select class="m-select m-recipe-finder-form__field">
+        <option>Most recent</option>
+        <option value="rating">Most popular</option>
+      </select>
+      <input name="type" value="article" type="hidden" />
+      <button class="m-input m-input--type-submit m-recipe-finder-form__field" type="submit">Search</button>
+    </form>
+  </div>
+</div>
+<div class="l-inner-container--12 l-recipes-headline">
+  <h1 class="m-primary-heading m-primary-heading--recipes-headline">Discover delicious Recipes</h1>
+  <div class="m-filter">
+    <button class="m-filter__switcher m-button m-button--with-arrow">Filter</button>
+    <div id="openDiv" class="m-filter__content">
+      <div class="m-filter-options">
+        <div class="m-filter-options__wrapper">
+          {% for tag in blog.all_tags %}
+          <div class="m-filter-option">
+            <button class="m-filter-label m-filter-label--button{% if current_tags contains tag %} s-is-active{% endif %}" data-tag="{{ tag | handle }}">{{ tag }}</button>
+          </div>	
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% paginate blog.articles by 9 %}
+<div id="AjaxinateContainer">
+  <div class="l-recipes m-recipes-list">
+    {% for article in blog.articles %}
+    <div class="m-recipe">
+      <div class="m-recipe__primary-details">
+        <ul class="m-categories">
+          {% for tag in article.tags %}
+          <li class="m-categories__item m-recipe-category">
+            <a href="{{ shop.url }}{{ blog.url }}/tagged/{{ tag | handle }}" class="m-category">{{ tag }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+        {% assign global = article.metafields.global %}
+        {% assign key = 'recipeyield' %}
+        <span class="m-people">
+          {{ global.recipeyield }}
+        </span>
+      </div>
+      {% if article.image %}
+      <div class="m-recipe__cover">
+        <div class="m-image-container" style="background-image: url('{{ article.image | img_url: '1200x' }}">
+          <img class="m-image-container__raw-image" src="{{ article.image | img_url: '300x300' }}">
+        </div>
+      </div>
+      {% endif %}
+      <div class="m-recipe__content">   
+        <h2 class="m-recipe-title">
+          <a href="{{ article.url }}" class="article__link">{{ article.title | escape }}</a>
+        </h2>
+        {% assign global = article.metafields.global %}
+        {% assign key = 'prep-time' %}
+        {% assign key = 'cook-time' %}
+        <div class="m-recipe__extra-details"><time class="m-recipe-cooking-time">{{ global.prep-time }} Prep | {{ global.cook-time }} Cooking</time></div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="ajax-error-message"></div>
+</div>
+<div id="AjaxinatePagination">
+  {% if paginate.next %}
+  <a href="{{ paginate.next.url }}">View more</a>
+  {% endif %}
+</div>
+{% endpaginate %}
+
+{% schema %}
+{
+"name": {
+"de": "Blogseiten",
+"en": "Blog recipes pages",
+"es": "Páginas del blog",
+"fr": "Pages du blog",
+"it": "Pagine del blog",
+"ja": "ブログページ",
+"pt-BR": "Páginas do blog"
+},
+"settings": [
+{
+"type": "checkbox",
+"id": "show_filter",
+"label":"Show Filter",
+"default": true
+}
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

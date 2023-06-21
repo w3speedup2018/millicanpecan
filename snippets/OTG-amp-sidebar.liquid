@@ -1,0 +1,17 @@
+{% assign index = 1 %}
+
+<amp-sidebar id="mainNavigation" layout="nodisplay" side="left">
+  <i class="fa fa-close close-menu" on='tap:mainNavigation.close' role="button" tabindex="2"></i>
+  <ul class="mainMenu">
+      {%- include 'OTG-amp-sidebar-menu-default' -%}
+      <li><hr></li>
+      {% if customer %}
+        <li><a href="/account" tabindex="{{ index }}"><span>Account</span></a></li>
+        {% assign index = index | plus: 1 %}
+        <li><a href="/account/logout" tabindex="{{ index }}"><span>Logout</span></a></li>
+      {% else %}
+    	<li><a href="/account/register" tabindex="{{ index }}"><span>Create Account</span></a></li>
+        <li><a href="/account/login" tabindex="{{ index | plus: 1 }}"><span>Login</span></a></li>
+      {% endif %}
+    </ul>
+</amp-sidebar>

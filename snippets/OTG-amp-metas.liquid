@@ -1,0 +1,27 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+
+{% if settings.favicon_enable %}
+  <link rel="shortcut icon" href="{{ 'favicon.png' | asset_url }}" type="image/png" />
+{% endif %}
+
+<link rel="canonical" href="{{ canonical_url }}">
+
+{%- capture seo_title -%}
+    {{ page_title }}
+    {%- if current_tags -%}
+        {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+    {%- endif -%}
+    {%- if current_page != 1 -%}
+      &ndash; {{ 'general.meta.page' | t: page: current_page }}
+    {%- endif -%}
+    {%- unless page_title contains shop.name -%}
+      | {{ shop.name }}
+    {%- endunless -%}
+{%- endcapture -%}
+<title>{{ seo_title }}</title>
+
+{%- include 'OTG-amp-json-ld' -%}
+{%- if template contains 'product' -%}
+  {%- include 'OTG-amp-product-page-json-ld' -%}
+{%- endif %}

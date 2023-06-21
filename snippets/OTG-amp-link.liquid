@@ -1,0 +1,9 @@
+{%- assign OTG_templates = "collection,product" | split: ','  -%}
+
+{%- if OTG_templates contains template.name -%}
+    {%- if canonical_url contains '?' -%}
+        <link rel="amphtml" href="{{ canonical_url }}&view=amp">
+    {%- else -%}
+        <link rel="amphtml" href="{{ canonical_url }}?view=amp">
+    {%- endif -%}
+{%- endif -%}

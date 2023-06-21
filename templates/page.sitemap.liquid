@@ -1,0 +1,164 @@
+
+<style>
+  .one{
+  float:left;
+  width:50%;
+  }
+  @media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+ .one{
+ 
+  width:100%;
+  }
+}
+
+</style>
+
+
+<div class="page-width">
+  <div class="grid">
+    <div class="grid__item medium-up--five-sixths medium-up--push-one-twelfth">
+      <div class="section-header text-center">
+        <h1>{{ page.title }}</h1>
+      </div>
+  
+      
+ 		
+      
+          <div class="one">
+            <h2>Pages</h2>
+            	<ul class="parent">
+                  {% for link in linklists.main-menu.links %}
+                  <li><a href="{{ link.url }}">{{ link.title }}</a>
+                  {% if link.links != blank %}
+                    <ul class="child">
+                      {% for child_link in link.links %}  
+                      <li><a href= "{{ child_link.url }}">{{ child_link.title }}</a>
+                      {% if child_link.links != blank %}
+                        <ul class="grandchild">
+                        {% for grandchild_link in child_link.links %}  
+                          <li><a href= "{{ grandchild_link.url }}">{{ grandchild_link.title }}</a></li>
+                        {% endfor %}
+                        </ul>
+                      {% endif %}   
+                      </li>
+                      {% endfor %}
+                    </ul> 
+                  {% endif %} 
+                  </li>
+                  {% endfor %}
+				</ul>
+            `<h2>Blogs-The Millicans.</h2>
+          
+           
+           {% for article in blogs.the-millicans.articles %}
+           
+            <ul>
+              <li>
+              
+                <a href="{{ article.url }}">{{article.title}}</a>
+              </li>
+            </ul>
+           {% endfor %}
+            <br>
+            
+            `<h2>Blogs- Pecan Recipes.</h2>
+            
+             
+              {% for article in blogs.pecan-recipes.articles %}
+           
+            <ul>
+              <li>
+              
+                <a href="{{ article.url }}">{{article.title}}</a>
+              </li>
+            </ul>
+           {% endfor %}
+            <br>
+            <h2>Blogs- Pecan Recipes Blog.</h2>
+            
+             
+              {% for article in blogs.pecan-recipes-blog.articles %}
+           
+            <ul>
+              <li>
+              
+                <a href="{{ article.url }}">{{article.title}}</a>
+              </li>
+            </ul>
+           {% endfor %}
+               `<h2>Blogs- Pecan Orchads.</h2>
+            
+             
+              {% for article in blogs.pecan-orchards.articles %}
+           
+            <ul>
+              <li>
+              
+                <a href="{{ article.url }}">{{article.title}}</a>
+              </li>
+            </ul>
+           {% endfor %}
+          </div>
+		<div class="one">
+  			<h2>Collections</h2>
+     		  <ul>
+  				{% for c in collections %}
+ 				 <li>
+				    <a href="{{ c.url }}">{{ c.title }}</a>
+				 </li>
+ 				{% endfor %}
+			  </ul> 
+          <br>
+          
+           <h2>Products</h2>
+            	<ul>              
+					{% paginate collections.all.products by 1000 %}
+  						{% for product in collections.all.products %}
+  							<li>
+    							<a href="{{ product.url }}">{{ product.title }}</a>
+ 	 						</li>
+  						{% endfor %}
+					{% endpaginate %}
+
+            	</ul> 
+          <br>
+          <h2>Blogs- Pecan Nutrition.</h2>
+            
+             
+              {% for article in blogs.nutrition.articles %}
+           
+            <ul>
+              <li>
+              
+                <a href="{{ article.url }}">{{article.title}}</a>
+              </li>
+            </ul>
+           {% endfor %}
+          <br>
+          <h2>Blogs- Pecan Research.</h2>
+            
+             
+              {% for article in blogs.pecan-studies.articles %}
+           
+            <ul>
+              <li>
+              
+                <a href="{{ article.url }}">{{article.title}}</a>
+              </li>
+            </ul>
+           {% endfor %}
+        </div>
+         
+        
+       
+       
+ 
+     
+     
+      </div>
+    </div>
+  </div>
+  
+     
+

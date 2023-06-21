@@ -1,0 +1,132 @@
+{% layout 'theme.amp' }%}
+
+{% if product.compare_at_price_min > product.price_min %}
+    {% assign on_sale = true %}
+{% else %}
+    {% assign on_sale = false %}
+{% endif %}
+
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+{% comment %}Parse AMP content if it exists{% endcomment %}
+{% if product.description contains '<!--amp.product-description.start--' %}
+    {% assign content_array = product.description | split: '<!--amp.product-description.start--' %}
+    {% assign amp_content = content_array[1] | remove: '--amp.product-description.end-->' %}
+{% else %}
+    {% assign amp_content = product.description %}
+{% endif %}
+
+<div class="content">
+    <amp-state id="myState">
+        <script type="application/json" id="myState">
+            {
+                "variantId": "{{ current_variant.id }}",
+                "option1": "{{ current_variant.option1 | escape | remove:'&' | remove:';' }}",
+                "option2": "{{ current_variant.option2 | escape | remove:'&' | remove:';' }}",
+                "option3": "{{ current_variant.option3 | escape | remove:'&' | remove:';' }}",
+                "productImage": "{{ product.featured_image.src | img_url: '800x' }}",
+                "variants": [
+                  {%- for variant in product.variants -%}
+                    {
+                        "id": "{{ variant.id }}",
+                        "option1": "{{ variant.option1 | escape | remove:'&' | remove:';' }}",
+                        "option2": "{{ variant.option2 | escape | remove:'&' | remove:';' }}",
+                        "option3": "{{ variant.option3 | escape | remove:'&' | remove:';' }}",
+                        "variantPrice": "{{ variant.price | money | strip_html | remove: '<span class=money>' | remove: '</span>' }}",
+                        "variantPriceFull": "{{ variant.compare_at_price | money | strip_html | remove: '<span class=money>' | remove: '</span>' }}",
+                        "available": {{ variant.available }}
+                    }{%- unless forloop.last -%},{%- endunless -%}
+                  {%- endfor -%}
+                ]
+            }
+        </script>
+    </amp-state>
+    <div class="product">
+        <div class="image">
+            <amp-img alt="{{ product.title | escape }}"
+                     [src]="myState.productImage"
+                     src="{{ product.featured_image.src | img_url: '800x' }}"
+                     width="320"
+                     height="320"
+                     layout="responsive">
+            </amp-img>
+            {% if product.images.size > 1 %}
+                <form action="/" target="_top" class="gallery">
+                    {% for image in product.images %}
+                        <div class="thumb-nail" tabindex="1" role="img"
+                             on="tap:AMP.setState({myState: {productImage: 'https:{{ image.src | img_url: '800x' }}'}})">
+                            <amp-img alt="{{ product.title | escape }}"
+                                     src="{{ image.src | product_img_url: '80x' }}"
+                                     width="80"
+                                     height="80">
+                            </amp-img>
+                        </div>
+                    {% endfor %}
+                </form>
+            {% endif %}
+        </div>
+        <div class="info">
+            <div class="title">{{ product.title }}</div>
+            {% if product.vendor %}
+                <a href="/collections/vendors?q={{ product.vendor }}&view=amp"><div class="brand">{{ product.vendor }}</div></a>
+            {% endif %}
+            <div class="price">
+                <span [text]="myState.variants.filter(v => v.option1 == myState.option1 && v.option2 == myState.option2 && v.option3 == myState.option3)[0].variantPrice || 'selected options not available'">{{ current_variant.price | strip_html | money }}</span>
+                {%- if on_sale == true -%}
+                    <span class="strike-through"
+                          [text]="myState.variants.filter(v => v.option1 == myState.option1 && v.option2 == myState.option2 && v.option3 == myState.option3)[0].variantPriceFull || ''">{{ current_variant.compare_at_price | strip_html | money }}</span>
+                {%- endif -%}
+            </div>
+            <div class="product-form">
+                <form action="/cart/add" target="_top">
+                    {% if product.has_only_default_variant %}
+                    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                    {% else %}
+                        <input
+                                type="hidden"
+                                name="id"
+                                value="{{ product.selected_or_first_available_variant.id }}"
+                                [value]="myState.variants.filter(v =>
+                                                    v.option1 == myState.option1
+                                                        && v.option2 == myState.option2
+                                                            && v.option3 == myState.option3)[0].id">
+                        <div class="options">
+                        {%- for option in product.options_with_values -%}
+                            {%- assign option_id = 'option' | append: forloop.index -%}
+                            <div class="variant-name">{{ option.name }}</div>
+                            {% include 'OTG-amp-product-swatches' %}
+                        {% endfor %}
+                        </div>
+                        {% endif %}
+                        <label for="qty" class="qty-label">Qty</label>
+                        <input class="qty" id="qty" type="number" name="quantity" value="1" required>
+                        {%- if product.available -%}
+                            <button class="btn add-to-cart"
+                                    type="submit"
+                                    [class]="myState.variants.filter(v =>
+                                                    v.option1 == myState.option1
+                                                        && v.option2 == myState.option2
+                                                            && v.option3 == myState.option3)[0].available ? 'btn add-to-cart': 'btn add-to-cart disabled'"
+                            >
+                                Add To Cart
+                            </button>
+                        {%- else -%}
+                            <button class="btn not-in-stock" disabled>Not In-Stock</button>
+                        {%- endif -%}
+                </form>
+            </div>
+            <div class="description">
+                <h3>Description</h3>
+                {{ amp_content }}
+            </div>
+            {%- if product.collections.size > 1 -%}
+                <h3 class="collections-title">Also found in:</h3>
+                <ul class="collection-list">
+                    {%- for collection in product.collections -%}
+                        <li><a href="{{ collection.url }}?view=amp">{{ collection.title }}</a></li>
+                    {%- endfor -%}
+                </ul>
+            {%- endif -%}
+        </div>
+    </div>
+</div>
