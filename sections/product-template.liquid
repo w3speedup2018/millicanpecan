@@ -1,4 +1,4 @@
- 
+<script type="lazyload_int" data-src="https://embed.lpcontent.net/leadboxes/current/embed.js"></script> 
 <div class="product-template__container page-width"
   id="ProductSection-{{ section.id }}"
   data-section-id="{{ section.id }}"
@@ -209,7 +209,7 @@
         ></p>
 
         <div class="product-single__description rte">
-          <span class='gc_autolink_product'>{{ product.description }}</span>
+          <span class='gc_autolink_product'>{{ product.description | replace: 'iframe','iframelazy' | replace: ' src=', ' data-class="LazyLoad" data-src='}}</span>
         </div>
       
         <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
